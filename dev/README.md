@@ -2,5 +2,6 @@
 
 ### Code dev/lib Folder
 
-The lib directory contains various files with function definitions and computation codes for your data analysis. 
+The lib directory contains various files with function definitions and computation codes for my data analysis. 
 
+Please read the file with name anes_timeseries and file .Rhistory
