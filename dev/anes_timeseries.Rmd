@@ -1,13 +1,18 @@
 ---
-title: "Will characteristics of the voter change over time"
+title: "Will characteristics of the voter change over time?"
 output:
   html_document:
     df_print: paged
   pdf_document: default
 ---
 
+![](Vote.jpg)
+
 ### Introduction
-This is a data story about the general profile of voter. I'm curious about will the characteristics of voters change over time. If it will change over time, then when it change and how it change? In addition, this data story can tell us about what kind of people are voting. Will there be more old people or more young people participated in vote? And how about the gender and education level of people participated in vote?
+This is a data story about the general profile of voter. I'm curious about will the characteristics of voters change over time. If it will change over time, then when it change and how it change? In addition, this data story can tell us about what kind of people are voting. Will there be more old people or more young people participated in vote? And how about the gender and education level of people participated in vote? In this analysis, I will answer two questions:
+
+1, Will the characteristics of voters change over time?
+2, What is the characteristics of voters today.
 
 ### Data import and prepossing
 ```{r message=FALSE, warning=FALSE}
@@ -23,7 +28,7 @@ print(dim(mydata)[1])
 print(dim(mydata)[2])
 ```
 
-There are 1029 variables in data set. We only need some of it. I extracted five columns----'year', 'age', 'gender', 'race' and 'education'. In addition, I only use data after 1984, because questions in census changed frequently before 1984. Besides, there will be too many data if we use all the data since 1948.
+There are 1029 variables in data set. We only need some of it. I chose five columns----year, age, gender, race and education. In addition, I only use data after 1984, because questions in census changed frequently before 1984. Besides, there will be too many data if we use all the data since 1948.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -35,7 +40,7 @@ print(dim(data)[2])
 head(data, 5)
 ```
 
-Now we have a dataframe of data we needed, we need to do some simple check about whether there are problems inside data. In this step, I check about missing data and repeated data.
+Now we have a data frame of data we needed, we need to do some simple check about whether there are problems inside data. In this step, I check about missing data and repeated data.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -74,7 +79,7 @@ barplot(table(newdata$year), las=2, main='number of respondents over year')
 ```
 
 
-From above graph we can see that number of respondent is different over year. In order to eliminated the effect of number of people, I used percentage histogram to visualize each variables.
+From above graph we can see that number of respondent is different over year. Because I only care about the proportion of different group of people. In order to eliminated the effect of number of people, I used percentage histogram to visualize each variables.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -94,7 +99,7 @@ ggplot(ce, aes(x = year, y = percent_weight, fill = gender)) +
   theme(axis.text.x = element_text(angle = 60))
 ```
 
-The proportion of male and female is stable over year. Female is slightly fewer then male. I checked the total population in the United States by gender and found that the number of female is slightly more than male since 1960. This maybe imply that male are more willing to participated in vote.
+The proportion of male and female is stable over year. Female is slightly fewer then male. I checked the total population in the United States by gender and found that the number of female is slightly more than male since 1960. This imply that male are more willing to participated in vote.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -112,7 +117,7 @@ ggplot(ce, aes(x = year, y = percent_weight, fill = race)) +
 
 ```
 
-The porpotion of different race of people participated in vote is stable until 2000. Maybe this is because survey sample change. 
+The proportion of different race of people participated in vote is stable until 2000. Maybe this is because survey sample change, or maybe is because the financial crisis? 
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -129,7 +134,7 @@ ggplot(ce, aes(x = year, y = percent_weight, fill = age)) +
   theme(axis.text.x = element_text(angle = 60))
 ```
 
-In recent year, people in group 4 and 5 are major voter. However, the proportion of different age of people participated in vote is not stable. From the graph we can see number of people in age group 1 going down first then going up and then going down. People in age group 2 keep going down. People in age group 3 and 4 going up then going down. people in age group 5 keep going up. In order to visualize the pattern, I will produce a line chart later.
+In recent year, people in group 4 and 5 are major voter. However, the proportion of different age of people participated in vote is not stable. In year 1984 and 1986, people in group 2 are major voter. From the graph we can see number of people in age group 1 going down first then going up and then going down. People in age group 2 keep going down. People in age group 3 and 4 going up then going down. people in age group 5 keep going up. In order to visualize the pattern, I will produce a line chart later.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -146,7 +151,7 @@ ggplot(ce, aes(x = year, y = percent_weight, fill = education)) +
   theme(axis.text.x = element_text(angle = 60))
 ```
 
-In rencent year, people of group 3 and 4 are major voter. However, the proportion of different education level of people participated in vote is not stable. From the graph we can see number of people in group 1 and 2 keep going down except for 2008. People in group 3 and 4 keep going up except for 2008. I think 2008 year should be exclude from analysis.
+In recent year, people of group 3 and 4 are major voter. However, the proportion of different education level of people participated in vote is not stable. In year before 2000, group 2 people are major voter.From the graph we can see number of people in group 1 and 2 keep going down except for 2008. People in group 3 and 4 keep going up except for 2008. I think 2008 year should be exclude from analysis.
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -163,7 +168,7 @@ ggplot(temp, aes(x=year, y = percent_weight, colour = age, group = age)) +
   theme(axis.text.x = element_text(angle = 60))
 ```
 
-From the graph we can see that group 2 number of people participated in vote peak at approximately year 1984. Group 3 peak at approximately 1996. Group 4 peak at approximately 2004, group 5 at 2012. The peak point of each groups are approximately 10 year apart, which is exactly the age difference between each groups. Maybe only the same group of people are willing to vote, young people are not very willing to participate. Age of people participate in vote tend to become elder and elder. There are many papers and articles on the internet have discuss about the power of senior voter. 
+From the graph we can see that group 2 number of people participated in vote peak at approximately year 1984. Group 3 peak at approximately 1996. Group 4 peak at approximately 2004, group 5 at 2012. The peak point of each groups are approximately 10 year apart, which is exactly the age difference between each groups. I guess this maybe because only the same group of people are willing to vote, young people in recent year are not very willing to participate. Age of people participate in vote tend to become elder and elder. There are many papers and articles on the internet have discuss about the power of senior voter. 
 
 
 ```{r message=FALSE, warning=FALSE}
